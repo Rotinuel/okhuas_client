@@ -31,11 +31,15 @@ const registerSchema = z
     password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string().min(8, "Confirm password is required"),
     role: z.literal("user"),
-    termsAccepted: z.literal(true, {
-      errorMap: () => ({
-        message: "You must agree to the Privacy Policy and Terms of Use",
-      }),
-    }),
+    // termsAccepted: z.literal(true, {
+    //   errorMap: () => ({
+    //     message: "You must agree to the Privacy Policy and Terms of Use",
+    //   }),
+    // }),
+    termsAccepted: z.boolean().refine((val) => val === true, {
+  message: "You must accept the terms and privacy policy",
+}),
+
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
