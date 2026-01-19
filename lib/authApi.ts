@@ -22,7 +22,7 @@ const getAuthToken = (): string | undefined => {
 };
 
 const authApi = {
-  post: async (url: string, body: unknown): Promise<ApiResponse> => {
+  post: async <T>(url: string, body: unknown): Promise<ApiResponse<T>> => {
     try {
       const token = getAuthToken();
       const response = await fetch(`${baseURL}${url}`, {
@@ -68,7 +68,7 @@ const authApi = {
     }
   },
 
-  put: async (url: string, body: unknown): Promise<ApiResponse> => {
+  put: async <T>(url: string, body: unknown): Promise<ApiResponse<T>> => {
     try {
       const token = getAuthToken();
       console.log("authApi: PUT", url, "Token:", !!token);
@@ -121,7 +121,7 @@ const authApi = {
     }
   },
 
-  get: async (url: string): Promise<ApiResponse> => {
+  get: async <T>(url: string): Promise<ApiResponse<T>> => {
     try {
       const token = getAuthToken();
       console.log("authApi: GET", url, "Token:", !!token);
@@ -173,7 +173,7 @@ const authApi = {
     }
   },
 
-  delete: async (url: string): Promise<ApiResponse> => {
+  delete: async <T>(url: string): Promise<ApiResponse<T>> => {
     try {
       const token = getAuthToken();
       console.log("authApi: DELETE", url, "Token:", !!token);
